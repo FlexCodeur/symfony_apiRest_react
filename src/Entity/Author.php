@@ -15,23 +15,23 @@ class Author
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['book:read', 'author:read'])]
+    #[Groups(groups : ['book.show', 'author.show'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['book:read', 'author:read'])]
+    #[Groups(groups : ['book.show', 'author.show'])]
     private ?string $firstName = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['book:read', 'author:read'])]
+    #[Groups(groups : ['book.show', 'author.show'])]
     private ?string $lastName = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    #[Groups(['book:read', 'author:read'])]
+    #[Groups(groups : ['book.show', 'author.show'])]
     private ?\DateTimeInterface $birthdayDate = null;
 
     #[ORM\OneToMany(mappedBy: 'author', targetEntity: Book::class)]
-    #[Groups(['author:read'])]
+    #[Groups(groups: ['author.show'])]
     private Collection $books;
 
     public function __construct()
@@ -108,5 +108,15 @@ class Author
         }
 
         return $this;
+    }
+
+    public function __serialize(): array {
+
+        return [$this->id, $this->firstName, $this->lastName, $this->birthdayDate];
+    }
+
+    public function __unserialize(array $data): void {
+
+        [$this->id, $this->firstName, $this->lastName, $this->birthdayDate] = $data;
     }
 }

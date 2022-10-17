@@ -1,5 +1,5 @@
 import React from "react";
-import bookList from './bookList'
+import bookList from './BookList'
 
 const Home = () => {
   return (
@@ -8,6 +8,7 @@ const Home = () => {
 
       <a href="/books">Voir les livres</a>
       <a href="/authors">Voir les auteurs</a>
+      <a href="/kinds">Voir les genres</a>
 
     </div>
   );

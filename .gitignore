@@ -11,7 +11,7 @@
 
 /.gitignore
 /.idea/
-/src/DataFixtures/
+/src/Controller/DataFixtures/
 
 ###> phpunit/phpunit ###
 /phpunit.xml

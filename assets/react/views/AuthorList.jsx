@@ -1,5 +1,5 @@
 import React from "react";
-import Authors from "../components/authors";
+import Authors from "../components/Authors";
 
 const AuthorList = () => {
   return (

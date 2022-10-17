@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\BookRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -13,32 +15,41 @@ class Book
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['book:read', 'author:read'])]
+    #[Groups(groups : ['book.show', 'author.show', 'kind.show'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['book:read', 'author:read'])]
+    #[Groups(groups : ['book.show', 'author.show', 'kind.show'])]
     private ?string $title = null;
 
     #[ORM\Column(type: Types::TEXT)]
-    #[Groups(['book:read', 'author:read'])]
+    #[Groups(groups : ['book.show', 'author.show', 'kind.show'])]
     private ?string $description = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    #[Groups(['book:read', 'author:read'])]
+    #[Groups(groups : ['book.show', 'author.show', 'kind.show'])]
     private ?\DateTimeInterface $publishedAt = null;
 
     #[ORM\Column(length: 13)]
-    #[Groups(['book:read', 'author:read'])]
+    #[Groups(groups : ['book.show', 'author.show', 'kind.show'])]
     private ?string $isbn = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    #[Groups(['book:read', 'author:read'])]
+    #[Groups(groups : ['book.show', 'author.show', 'kind.show'])]
     private ?string $editor = null;
 
     #[ORM\ManyToOne(inversedBy: 'books')]
-    #[Groups(['book:read'])]
+    #[Groups(groups : ['book.show'])]
     private ?Author $author = null;
+
+    #[Groups(groups : ['book.show'])]
+    #[ORM\ManyToMany(targetEntity: Kind::class, mappedBy: 'books')]
+    private Collection $kinds;
+
+    public function __construct()
+    {
+        $this->kinds = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -113,6 +124,33 @@ class Book
     public function setAuthor(?Author $author): self
     {
         $this->author = $author;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Kind>
+     */
+    public function getKinds(): Collection
+    {
+        return $this->kinds;
+    }
+
+    public function addKind(Kind $kind): self
+    {
+        if (!$this->kinds->contains($kind)) {
+            $this->kinds->add($kind);
+            $kind->addBook($this);
+        }
+
+        return $this;
+    }
+
+    public function removeKind(Kind $kind): self
+    {
+        if ($this->kinds->removeElement($kind)) {
+            $kind->removeBook($this);
+        }
 
         return $this;
     }
