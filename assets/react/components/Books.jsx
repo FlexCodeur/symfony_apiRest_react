@@ -16,14 +16,22 @@ const Books = () => {
 
   return (
     <section>
+      {loading && 'Chargement...'}
       { booksData.map((book) =>
         <div className="books" key={book.id}>
           <h1>{book.title}</h1>
           <p>{book.description}</p>
-          <p>{new Date(book.publishedAt).toLocaleString()}</p>
+          <p>{new Date(book.publishedAt).toDateString()}</p>
           <p>{book.isbn}</p>
           <p>{book.editor}</p>
-
+          <p>Auteur : {book.author && book.author.firstName + ' ' + book.author.lastName}</p>
+          <p>Genre :
+            {book.kinds.map((kind) =>
+              <span className="kinds" key={kind.id}>
+                {kind.name ? " " + kind.name : "Aucun genre"}
+              </span>
+            )}
+          </p>
         </div>
       )}
     </section>

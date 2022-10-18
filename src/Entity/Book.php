@@ -15,34 +15,34 @@ class Book
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(groups : ['book.show', 'author.show', 'kind.show'])]
+    #[Groups(groups : ['books.list', 'book.show', 'authors.list', 'kinds.list'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(groups : ['book.show', 'author.show', 'kind.show'])]
+    #[Groups(groups : ['books.list', 'book.show', 'authors.list', 'kinds.list'])]
     private ?string $title = null;
 
     #[ORM\Column(type: Types::TEXT)]
-    #[Groups(groups : ['book.show', 'author.show', 'kind.show'])]
+    #[Groups(groups : ['books.list', 'book.show', 'authors.list'])]
     private ?string $description = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    #[Groups(groups : ['book.show', 'author.show', 'kind.show'])]
+    #[Groups(groups : ['books.list', 'book.show', 'authors.list'])]
     private ?\DateTimeInterface $publishedAt = null;
 
     #[ORM\Column(length: 13)]
-    #[Groups(groups : ['book.show', 'author.show', 'kind.show'])]
+    #[Groups(groups : ['books.list', 'book.show', 'authors.list'])]
     private ?string $isbn = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    #[Groups(groups : ['book.show', 'author.show', 'kind.show'])]
+    #[Groups(groups : ['books.list', 'book.show', 'authors.list'])]
     private ?string $editor = null;
 
     #[ORM\ManyToOne(inversedBy: 'books')]
-    #[Groups(groups : ['book.show'])]
+    #[Groups(groups : ['books.list', 'book.show'])]
     private ?Author $author = null;
 
-    #[Groups(groups : ['book.show'])]
+    #[Groups(groups : ['books.list'])]
     #[ORM\ManyToMany(targetEntity: Kind::class, mappedBy: 'books')]
     private Collection $kinds;
 

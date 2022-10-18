@@ -15,23 +15,23 @@ class Author
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(groups : ['book.show', 'author.show'])]
+    #[Groups(groups : ['books.list', 'book.show', 'authors.list'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(groups : ['book.show', 'author.show'])]
+    #[Groups(groups : ['books.list', 'book.show', 'authors.list'])]
     private ?string $firstName = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(groups : ['book.show', 'author.show'])]
+    #[Groups(groups : ['books.list', 'book.show', 'authors.list'])]
     private ?string $lastName = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    #[Groups(groups : ['book.show', 'author.show'])]
+    #[Groups(groups : ['authors.list'])]
     private ?\DateTimeInterface $birthdayDate = null;
 
     #[ORM\OneToMany(mappedBy: 'author', targetEntity: Book::class)]
-    #[Groups(groups: ['author.show'])]
+    #[Groups(groups: ['authors.list'])]
     private Collection $books;
 
     public function __construct()
@@ -112,11 +112,11 @@ class Author
 
     public function __serialize(): array {
 
-        return [$this->id, $this->firstName, $this->lastName, $this->birthdayDate];
+        return [$this->id, $this->firstName, $this->lastName];
     }
 
     public function __unserialize(array $data): void {
 
-        [$this->id, $this->firstName, $this->lastName, $this->birthdayDate] = $data;
+        [$this->id, $this->firstName, $this->lastName] = $data;
     }
 }

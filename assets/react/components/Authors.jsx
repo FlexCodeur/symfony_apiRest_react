@@ -16,10 +16,11 @@ const Authors = () => {
 
     return (
       <section>
+        {loading && 'Chargement...'}
         { authorsData.map((author) =>
           <div className="authors" key={author.id}>
             <h1>{author.firstName + ' ' + author.lastName.toUpperCase()}</h1>
-            <p>Date de naissance : {author.birthdayDate.toString()}</p>
+            <p>Date de naissance : {new Date(author.birthdayDate).toDateString()}</p>
             <p>Livres publié:</p>
             {author.books.map((book) =>
               <div className="books" key={book.id}>
