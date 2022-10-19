@@ -15,19 +15,19 @@ class Author
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(groups : ['books.list', 'book.show', 'authors.list'])]
+    #[Groups(groups : ['books.list', 'book.show', 'authors.list', 'author.show'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(groups : ['books.list', 'book.show', 'authors.list'])]
+    #[Groups(groups : ['books.list', 'book.show', 'authors.list', 'author.show'])]
     private ?string $firstName = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(groups : ['books.list', 'book.show', 'authors.list'])]
+    #[Groups(groups : ['books.list', 'book.show', 'authors.list', 'author.show'])]
     private ?string $lastName = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    #[Groups(groups : ['authors.list'])]
+    #[Groups(groups : ['authors.list', 'author.show'])]
     private ?\DateTimeInterface $birthdayDate = null;
 
     #[ORM\OneToMany(mappedBy: 'author', targetEntity: Book::class)]
