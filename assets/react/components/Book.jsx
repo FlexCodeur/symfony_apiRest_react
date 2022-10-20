@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom'
-import NotFound from '../views/NotFound'
+import BookList from '../views/BookList'
 
 
 const Book = () => {
@@ -25,8 +25,15 @@ const params = useParams();
 
   return (
     <section>
-      {loading && 'Chargement...'}
-      {!bookData.id ? <NotFound /> :
+      {
+        <div className={"alert alert-warning alert-dismissible fade show"} role={"alert"}>
+          {bookError.message && bookError.message.content}
+          {/*<button className={"close"} type={"button"} data-dismiss={"alert"} aria-label={"Close"}>*/}
+          {/*  <span aria-hidden="true">&times;</span>*/}
+          {/*</button>*/}
+        </div>
+      }
+      {!bookData.id ? <BookList/> :
         <div className="book">
           <h1>{bookData.title}</h1>
           <p>{bookData.description}</p>

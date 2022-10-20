@@ -30,11 +30,11 @@ class ApiBookController extends AbstractController
         if(!$book){
             return $this->json([
                 'message' => [
-                    'content' => 'Aucun livre disponible',
+                    'content' => 'Le livre demandé n\'hexiste pas.',
                     'level' => 'error'
                 ]
             ],
-            404, [], ['groups' => 'book.show']);
+            302);
         }
 
         return $this->json($book, 200, [], ['groups' => 'book.show']);

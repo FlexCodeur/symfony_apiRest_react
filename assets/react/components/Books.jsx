@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import Book from './Book'
+import book from './Book'
 
 const Books = () => {
 
@@ -13,10 +15,10 @@ const Books = () => {
         setLoading(false)
       );
   }, []);
-
   return (
     <section>
       {loading && 'Chargement...'}
+      {console.log(book())}
       { booksData.map((book) =>
         <div className="books" key={book.id}>
           <h1>{book.title}</h1>
