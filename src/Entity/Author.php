@@ -109,14 +109,4 @@ class Author
 
         return $this;
     }
-
-    public function __serialize(): array {
-
-        return [$this->id, $this->firstName, $this->lastName];
-    }
-
-    public function __unserialize(array $data): void {
-
-        [$this->id, $this->firstName, $this->lastName] = $data;
-    }
 }

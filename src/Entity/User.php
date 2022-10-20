@@ -118,4 +118,25 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
     }
+
+//    public function __serialize(): array {
+//
+//        return [$this->id, $this->email, $this->username, $this->password];
+//    }
+//
+//    public function __unserialize(array $data): void {
+//
+//        [$this->id, $this->email, $this->username, $this->password] = $data;
+//    }
+
+    public function toArray()
+    {
+        return [
+            'id' => $this->id,
+            'email' => $this->email,
+            'username' => $this->username,
+            'roles' => $this->roles,
+            'password' => $this->password
+        ];
+    }
 }

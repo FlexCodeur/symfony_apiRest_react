@@ -15,6 +15,12 @@ security:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
+
+        registration:
+            pattern: ^/api/register
+            stateless: true
+            methods: [ POST ]
+
         login:
             pattern: ^/api/login
             stateless: true
@@ -27,9 +33,9 @@ security:
             pattern: ^/api
             stateless: true
             jwt: ~
-#        main:
-#            lazy: true
-#            provider: app_user_provider
+        main:
+            lazy: true
+            provider: app_user_provider
 #            custom_authenticator: App\Security\SecurityAuthenticator
 #            logout:
 #                path: app_logout
@@ -48,6 +54,7 @@ security:
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
         - { path: ^/api/login, roles: PUBLIC_ACCESS }
+        - { path: ^/api/users, roles: IS_AUTHENTICATED_FULLY, methods: [GET, PUT, DELETE] }
 
 when@test:
     security:
