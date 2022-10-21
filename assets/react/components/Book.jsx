@@ -25,7 +25,7 @@ const params = useParams();
 
   return (
     <section>
-      {
+      {bookError.message &&
         <div className={"alert alert-warning alert-dismissible fade show"} role={"alert"}>
           {bookError.message && bookError.message.content}
           {/*<button className={"close"} type={"button"} data-dismiss={"alert"} aria-label={"Close"}>*/}

@@ -8,6 +8,7 @@ import AuthorShow from './views/AuthorShow'
 import BookShow from './views/BookShow'
 import NotFound from './views/NotFound'
 import Login from './views/Login'
+import Register from './views/Register'
 
 function GetId() {
   const { id } = useParams();
@@ -24,13 +25,10 @@ const App = () => {
         <Route path="/books" element={<BookList />} />
         <Route path="/authors" element={<AuthorList />} />
         <Route path="/kinds" element={<KindList />} />
-        <Route path="/author/">
-          <Route path=":id" element={<AuthorShow/>} />
-        </Route>
-        <Route path="/book/">
-          <Route path=":id" element={<BookShow/>} />
-        </Route>
+        <Route path="/author/:id" element={<AuthorShow/>} />
+        <Route path="/book/:id" element={<BookShow/>} />
         <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
         {/* Chemin si jamais la route n'est pas connue */}
         <Route path="*" element={<NotFound />} />
       </Routes>

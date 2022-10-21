@@ -1,11 +1,16 @@
 import React from "react";
 import Books from "../components/Books";
+import Navbar from '../components/Navbar'
 
 const BookList = () => {
   return (
-    <div className="books">
-      <Books />
+    <div>
+      <Navbar />
+      <div className="books">
+        <Books />
+      </div>
     </div>
+
   );
 }
 
