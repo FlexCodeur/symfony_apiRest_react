@@ -6,14 +6,14 @@ import BookList from '../views/BookList'
 
 const Book = () => {
 
-const params = useParams();
+const { id } = useParams();
 
   const [bookData, setBookData] = useState([]);
   const [bookError, setBookError] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios.get('http://127.0.0.1:8000/api/v1/beta/book/' + params.id)
+    axios.get('http://127.0.0.1:8000/api/v1/beta/book/' + id )
       .then((response) =>
           setBookData(response.data),
           setLoading(false)

@@ -18,7 +18,6 @@ const Books = () => {
   return (
     <section>
       {loading && 'Chargement...'}
-      {console.log(book())}
       { booksData.map((book) =>
         <div className="books" key={book.id}>
           <h1>{book.title}</h1>

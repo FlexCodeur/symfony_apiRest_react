@@ -4,7 +4,6 @@ namespace App\Controller\ApiControllers;
 
 use App\Entity\User;
 use App\Form\RegistrationFormType;
-use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,12 +19,13 @@ class ApiSecurityController extends AbstractController {
 
         return $this->json([
             'username' => $user->getUsername(),
-            'roles' => $user->getRoles()
+            'roles' => $user->getRoles(),
         ]);
     }
 
-    #[Route ('api/register', name: 'app_api_register', methods: ['GET','POST'])]
-    public function apiRegister(
+    #[Route ('api/register', name: 'app_api_register', methods: ['POST'])]
+    public function apiRegister
+    (
         Request $request,
         UserPasswordHasherInterface $userPasswordHasher,
         EntityManagerInterface $entityManager
@@ -36,8 +36,6 @@ class ApiSecurityController extends AbstractController {
         $form = $this->createForm(RegistrationFormType::class);
         $form->submit((array)$content);
 
-
-
         if (!$form->isValid()) {
             $errors = [];
             foreach ($form->getErrors(true, true) as $error) {
@@ -46,7 +44,7 @@ class ApiSecurityController extends AbstractController {
             }
             return $this->json([
                 'message' => ['content' => $errors, 'level' => 'error'],
-            ], 403,[]);
+            ], 401,[]);
         }
 
         $user = new User();
@@ -63,10 +61,10 @@ class ApiSecurityController extends AbstractController {
         try {
             $entityManager->persist($user);
             $entityManager->flush();
-        } catch (UniqueConstraintViolationException) {
+        } catch (\Exception) {
             return $this->json([
                 'message' => ['content' => 'Une erreur s\'est produite.', 'level' => 'error']
-            ],402, []);
+            ],403, []);
 
         }
         return $this->json([

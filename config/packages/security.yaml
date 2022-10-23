@@ -24,6 +24,7 @@ security:
         login:
             pattern: ^/api/login
             stateless: true
+            methods: [ POST ]
             json_login:
                 check_path: app_api_login
                 success_handler: lexik_jwt_authentication.handler.authentication_success
@@ -53,6 +54,7 @@ security:
     access_control:
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
+        - { path: ^/api/, roles: PUBLIC_ACCESS }
         - { path: ^/api/login, roles: PUBLIC_ACCESS }
         - { path: ^/api/users, roles: IS_AUTHENTICATED_FULLY, methods: [GET, PUT, DELETE] }
 

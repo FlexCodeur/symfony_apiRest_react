@@ -9,8 +9,6 @@ const RegisterFormType = () => {
   const [checkbox, setCheckbox] = useState(false);
   const [loading, setLoading] = useState(true);
 
-
-
   const createOnSubmit = (e) => {
     e.preventDefault();
     const data = {
@@ -21,14 +19,12 @@ const RegisterFormType = () => {
     }
     console.log(data);
 
-
       axios.post('http://127.0.0.1:8000/api/register', data)
         .then((response) =>
             console.log(response),
           // console.log(response),
           setLoading(false)
         )
-
   };
 
 

@@ -1,10 +1,14 @@
 import React from "react";
-import LoginForm from '../components/LoginForm'
+import AuthFormType from '../formTypes/AuthFormType'
+import Navbar from '../components/Navbar'
 
 const Login = () => {
   return (
-    <div className="login">
-      <LoginForm />
+    <div>
+      <Navbar />
+      <div className="login">
+        <AuthFormType />
+      </div>
     </div>
   );
 }

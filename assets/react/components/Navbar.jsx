@@ -1,6 +1,19 @@
 import React from 'react'
+import { AuthToken } from '../services/AuthToken'
+import { useNavigate } from 'react-router-dom'
 
 const Navbar = () => {
+
+  const navigate = useNavigate();
+
+  const islogged = () => {
+    AuthToken.isLogged()
+  }
+
+  const logout = () => {
+    AuthToken.logout()
+    navigate('/')
+  }
 
   return (
     <div className="container-fluid p-0 text-white">
@@ -27,14 +40,26 @@ const Navbar = () => {
             </ul>
             <span className="navbar-text">
               <div className="container">
-                <ul className={"row list-unstyled mb-0"}>
-                  <li className="col-6 nav-item">
-                    <a className="nav-link" href="/login">Connexion</a>
-                  </li>
-                  <li className="col-6 nav-item">
-                    <a className="nav-link" href="/register">Inscription</a>
-                  </li>
-                </ul>
+                  {!islogged
+                    ?
+                    <ul className={"row list-unstyled mb-0"}>
+                      <li className="col-6 nav-item">
+                        <a className="nav-link" href="/login">Connexion</a>
+                      </li>
+                      <li className="col-6 nav-item">
+                        <a className="nav-link" href="/register">Inscription</a>
+                      </li>
+                    </ul>
+                    :
+                    <ul className={"row list-unstyled mb-0"}>
+                      <li className="col-6 nav-item">
+                      <p className="nav-link pointer-event" >Mon profil</p>
+                      </li>
+                      <li className="col-6 nav-item">
+                        <p className="nav-link pointer-event" onClick={logout}>Déconnexion</p>
+                      </li>
+                    </ul>
+                  }
               </div>
             </span>
           </div>
