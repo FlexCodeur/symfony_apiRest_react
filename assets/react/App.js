@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { BrowserRouter, Route, Routes, useParams } from 'react-router-dom'
 import Home from "./views/Home";
 import BookList from "./views/BookList";
@@ -18,7 +18,6 @@ const GetId = () => {
   return { id };
 }
 
-
 const App = () => {
   return (
     <BrowserRouter>
@@ -31,6 +30,10 @@ const App = () => {
           </Route>
           <Route path="/author/:id" element={<AuthorShow/>} />
           <Route path="/book/:id" element={<BookShow/>} />
+          <Route element={<RequireAuth rolesGranted={["ROLE_ADMIN", "ROLE_EDITOR"]} /> } >
+            <Route path={"/book/new"} />
+            <Route path={"/book/:id/edit"} />
+          </Route>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           {/* Chemin si jamais la route n'est pas connue */}

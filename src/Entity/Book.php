@@ -154,4 +154,16 @@ class Book
 
         return $this;
     }
+
+    public function toArray()
+    {
+        return [
+            'id' => $this->id,
+            'title' => $this->title,
+            'description' => $this->description,
+            'publishedAt' => $this->publishedAt,
+            'isbn' => $this->isbn,
+            'author' => $this->author,
+        ];
+    }
 }

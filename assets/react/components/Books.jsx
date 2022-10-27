@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Book from './Book'
-import book from './Book'
+import { AuthToken } from '../services/AuthToken'
+import { useNavigate } from 'react-router-dom'
+import Navbar from './Navbar'
 
 const Books = () => {
+
+  const navigate = useNavigate();
 
   const [booksData, setBooksData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -15,9 +19,29 @@ const Books = () => {
         setLoading(false)
       );
   }, []);
+
+  const isGranted = AuthToken.isGranted();
+
+  const handlerClick = () => {
+    navigate("/book/new")
+  }
+
   return (
     <section>
       {loading && 'Chargement...'}
+      <Navbar />
+      {
+        isGranted[0] === 'ROLE_ADMIN'
+          &&
+        <div className="container-fluid pt-3">
+          <div className="row justify-content-center">
+            <div className="col-12 mx-auto">
+              <button onClick={handlerClick} className={"d-flex justify-content-center btn btn-success mx-auto"}>Ajouter un livre</button>
+            </div>
+          </div>
+        </div>
+
+      }
       { booksData.map((book) =>
         <div className="books" key={book.id}>
           <h1>{book.title}</h1>
@@ -35,6 +59,7 @@ const Books = () => {
           </p>
         </div>
       )}
+
     </section>
   );
 }

@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import BookList from '../views/BookList'
+import { AuthToken } from '../services/AuthToken'
 
 
 const Book = () => {
@@ -11,6 +12,8 @@ const { id } = useParams();
   const [bookData, setBookData] = useState([]);
   const [bookError, setBookError] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  let navigate = useNavigate();
 
   useEffect(() => {
     axios.get('http://127.0.0.1:8000/api/v1/beta/book/' + id )
@@ -22,6 +25,12 @@ const { id } = useParams();
         setBookError(error.response.data),
         setLoading(false))
   }, []);
+
+  const isGranted = AuthToken.isGranted();
+  
+  const handlerClick = () => {
+    navigate("/book/" + bookData.id + "/edit")
+  }
 
   return (
     <section>
@@ -48,6 +57,13 @@ const { id } = useParams();
           {/*    </span>*/}
           {/*  )}*/}
           {/*</p>*/}
+          {
+            isGranted[0] === 'ROLE_EDITOR' || isGranted[0] === 'ROLE_ADMIN'
+            ?
+            <button onClick={handlerClick} className={"btn btn-primary"}>Modifier le livre</button>
+            :
+            null
+          }
         </div>
       }
     </section>

@@ -1,7 +1,6 @@
 import React from 'react'
 import { useLocation, Navigate, Outlet } from 'react-router-dom'
 import { AuthToken } from '../services/AuthToken'
-import NotFound from '../views/NotFound'
 
 const RequireAuth = ({ rolesGranted }) => {
   const isGranted = AuthToken.isGranted();
