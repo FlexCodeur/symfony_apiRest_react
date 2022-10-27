@@ -6,9 +6,7 @@ const Navbar = () => {
 
   const navigate = useNavigate();
 
-  const islogged = () => {
-    AuthToken.isLogged()
-  }
+  const isLogged = AuthToken.isLogged()
 
   const logout = () => {
     AuthToken.logout()
@@ -40,26 +38,27 @@ const Navbar = () => {
             </ul>
             <span className="navbar-text">
               <div className="container">
-                  {!islogged
-                    ?
-                    <ul className={"row list-unstyled mb-0"}>
-                      <li className="col-6 nav-item">
-                        <a className="nav-link" href="/login">Connexion</a>
-                      </li>
-                      <li className="col-6 nav-item">
-                        <a className="nav-link" href="/register">Inscription</a>
-                      </li>
-                    </ul>
-                    :
-                    <ul className={"row list-unstyled mb-0"}>
-                      <li className="col-6 nav-item">
-                      <p className="nav-link pointer-event" >Mon profil</p>
-                      </li>
-                      <li className="col-6 nav-item">
-                        <p className="nav-link pointer-event" onClick={logout}>Déconnexion</p>
-                      </li>
-                    </ul>
-                  }
+                  <ul className={"row list-unstyled mb-0"}>
+                    {!isLogged ?
+                      <>
+                        <li className="col-6 nav-item">
+                          <a className="nav-link" href="/login">Connexion</a>
+                        </li>
+                        <li className="col-6 nav-item">
+                          <a className="nav-link" href="/register">Inscription</a>
+                        </li>
+                      </>
+                      :
+                      <>
+                        <li className="col-6 nav-item">
+                          <p className="nav-link pointer-event">Mon profil</p>
+                        </li>
+                        <li className="col-6 nav-item">
+                          <button className="btn btn-danger bg-danger" onClick={logout}>Déconnexion</button>
+                        </li>
+                      </>
+                    }
+                  </ul>
               </div>
             </span>
           </div>

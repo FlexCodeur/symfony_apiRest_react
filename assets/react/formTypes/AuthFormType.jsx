@@ -16,15 +16,6 @@ const AuthFormType = () => {
   })
   const [loading, setLoading] = useState(true);
 
-
-  const decodeToken = (token) => {
-    let decode;
-    if (token) {
-      decode = jwtDecode(token)
-      return console.log(decode.roles);
-    }
-  }
-
   const handleChange = (e) => {
     setUser({
       ...user,

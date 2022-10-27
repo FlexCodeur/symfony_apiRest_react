@@ -9,7 +9,7 @@ import BookShow from './views/BookShow'
 import NotFound from './views/NotFound'
 import Login from './views/Login'
 import Register from './views/Register'
-import { AuthToken } from './services/AuthToken'
+import RequireAuth from './security/RequireAuth'
 
 
 const GetId = () => {
@@ -26,7 +26,9 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/books" element={<BookList />} />
           <Route path="/authors" element={<AuthorList />} />
-          <Route path="/kinds" element={<KindList />} />
+          <Route element={<RequireAuth rolesGranted={["ROLE_ADMIN"]} /> }>
+            <Route path="/kinds" element={<KindList />} />
+          </Route>
           <Route path="/author/:id" element={<AuthorShow/>} />
           <Route path="/book/:id" element={<BookShow/>} />
           <Route path="/login" element={<Login />} />

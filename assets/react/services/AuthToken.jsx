@@ -16,12 +16,8 @@ const isLogged = () => {
 
 const isGranted = () => {
   let token = localStorage.getItem('token')
-  let decode;
-
-  if (token) {
-    decode = jwtDecode(token)
-    return console.log(decode.roles);
-  }
+  let decode = jwtDecode(token)
+    return decode.roles;
 }
 
 export const AuthToken = {
