@@ -1,11 +1,16 @@
 import React from "react";
 import Authors from "../components/Authors";
+import Navbar from '../components/Navbar'
 
 const AuthorList = () => {
   return (
-    <div className="authors">
-      <Authors />
+    <div>
+      <Navbar />
+      <section className="authors">
+        <Authors />
+      </section>
     </div>
+
   );
 }
 

@@ -1,8 +1,9 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import jwtDecode from 'jwt-decode'
 import { AuthToken } from '../services/AuthToken'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Navigate } from 'react-router-dom'
+import Home from '../views/Home'
 
 const AuthFormType = () => {
 
@@ -14,7 +15,7 @@ const AuthFormType = () => {
     username: '',
     password: ''
   })
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     setUser({
@@ -30,14 +31,19 @@ const AuthFormType = () => {
       .then((response) =>
         AuthToken.saveToken(response.data.token),
         // console.log(response.data.token),
-        setLoading(false),
-        navigate("/")
+        setLoading(true),
+        setTimeout(() => {
+          navigate('/')
+        }, 2000)
       )
   };
+  const isLoggedIn = AuthToken.isLogged();
 
 
   return (
     <div className="container">
+      {loading && 'loading.......'}
+      {isLoggedIn && <Navigate to={'/'}/>}
       <form onSubmit={authHandler}>
         <div className="form-control bg-transparent">
           <label htmlFor={"username"}>Email</label>

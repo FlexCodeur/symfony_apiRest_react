@@ -56,7 +56,7 @@ security:
         # - { path: ^/profile, roles: ROLE_USER }
         - { path: ^/api/, roles: PUBLIC_ACCESS }
         - { path: ^/api/login, roles: PUBLIC_ACCESS }
-        - { path: ^/api/users, roles: IS_AUTHENTICATED_FULLY, methods: [GET, PUT, DELETE] }
+        - { path: ^/api/users, roles: IS_AUTHENTICATED_FULLY, methods: [GET] }
 
 when@test:
     security:

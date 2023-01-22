@@ -33,32 +33,31 @@ const Navbar = () => {
                 <a className="nav-link" href="/authors">Auteurs</a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="/kinds">Genres</a>
+                {isLogged && <a className="nav-link" href="/kinds">Genres</a>}
               </li>
             </ul>
             <span className="navbar-text">
               <div className="container">
+                {!isLogged
+                  ?
                   <ul className={"row list-unstyled mb-0"}>
-                    {!isLogged ?
-                      <>
-                        <li className="col-6 nav-item">
-                          <a className="nav-link" href="/login">Connexion</a>
-                        </li>
-                        <li className="col-6 nav-item">
-                          <a className="nav-link" href="/register">Inscription</a>
-                        </li>
-                      </>
-                      :
-                      <>
-                        <li className="col-6 nav-item">
-                          <p className="nav-link pointer-event">Mon profil</p>
-                        </li>
-                        <li className="col-6 nav-item">
-                          <button className="btn btn-danger bg-danger" onClick={logout}>Déconnexion</button>
-                        </li>
-                      </>
-                    }
+                    <li className="col-6 nav-item">
+                      <a className="nav-link" href="/login">Connexion</a>
+                    </li>
+                    <li className="col-6 nav-item">
+                      <a className="nav-link" href="/register">Inscription</a>
+                    </li>
                   </ul>
+                  :
+                  <ul className={"row list-unstyled mb-0"}>
+                    <li className="col-6 nav-item">
+                      <p className="nav-link pointer-event">Mon profil</p>
+                    </li>
+                    <li className="col-6 nav-item">
+                      <button className="btn btn-danger bg-danger" onClick={logout}>Déconnexion</button>
+                    </li>
+                  </ul>
+                }
               </div>
             </span>
           </div>

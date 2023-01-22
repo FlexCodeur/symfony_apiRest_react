@@ -5,7 +5,7 @@ import Navbar from '../components/Navbar'
 const BookList = () => {
   return (
     <div>
-
+      <Navbar/>
       <div className="books">
         <Books />
       </div>

@@ -1,10 +1,14 @@
 import React from "react";
 import Kinds from '../components/Kinds'
+import Navbar from '../components/Navbar'
 
 const KindList = () => {
   return (
-    <div className="books">
-      <Kinds />
+    <div>
+      <Navbar />
+      <section className="books">
+        <Kinds />
+      </section>
     </div>
   );
 }
