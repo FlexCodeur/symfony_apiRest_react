@@ -20,21 +20,18 @@ const Books = () => {
       );
   }, []);
 
-  const isLoggedIn = AuthToken.isLogged();
-  const isGranted = AuthToken.isGranted();
-
   const handlerClick = () => {
     navigate("/book/new")
   }
+
+  const isLoggedIn = AuthToken.isLogged();
+  const isGranted = AuthToken.isGranted();
 
   return (
     <section>
       {loading && 'Chargement...'}
       {
-        (isLoggedIn
-          &&
-          (isGranted[0] === "ROLE_ADMIN" || isGranted[0] === "ROLE_EDITOR")
-        )
+        (isLoggedIn && (isGranted[0] === "ROLE_ADMIN" || isGranted[0] === "ROLE_EDITOR"))
         &&
         <div className="container-fluid pt-3">
           <div className="row justify-content-center">

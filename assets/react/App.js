@@ -30,10 +30,10 @@ const App = () => {
           </Route>
           <Route path="/author/:id" element={<AuthorShow/>} />
           <Route path="/book/:id" element={<BookShow/>} />
-          <Route element={<RequireAuth rolesGranted={["ROLE_ADMIN", "ROLE_EDITOR"]} /> } >
+          {/*<Route element={<RequireAuth rolesGranted={["ROLE_ADMIN", "ROLE_EDITOR"]} /> } >*/}
             <Route path={"/book/new"} />
             <Route path={"/book/:id/edit"} />
-          </Route>
+          {/*</Route>*/}
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           {/* Chemin si jamais la route n'est pas connue */}

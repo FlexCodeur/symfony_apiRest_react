@@ -1,8 +1,10 @@
 import React, { useCallback, useState } from 'react'
 import axios from 'axios'
+import {useNavigate} from 'react-router-dom'
 
 const RegisterFormType = () => {
 
+  const navigate = useNavigate();
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -11,7 +13,7 @@ const RegisterFormType = () => {
 
   const createOnSubmit = (e) => {
     e.preventDefault();
-    const user = {
+    const data = {
       'username': username,
       'email': email,
       'password': password,
@@ -19,11 +21,12 @@ const RegisterFormType = () => {
     }
     console.log(data);
 
-      axios.post('http://127.0.0.1:8000/api/register', user)
+      axios.post('http://127.0.0.1:8000/api/register', data)
         .then((response) =>
             console.log(response),
           // console.log(response),
-          setLoading(false)
+          setLoading(false),
+          navigate('/login')
         )
   };
 
