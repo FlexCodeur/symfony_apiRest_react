@@ -10,7 +10,7 @@ const RequireAuth = ({ rolesGranted }) => {
   return (
     isGranted?.find(roles => rolesGranted.includes(roles))
     ? <Outlet/>
-    : <Navigate to={"/"}  state={{ form: location }} replace />
+    : <Navigate to={"/"}  state={{ form: location }} replace={true} />
   );
 }
 

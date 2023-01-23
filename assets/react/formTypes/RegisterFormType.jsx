@@ -11,7 +11,7 @@ const RegisterFormType = () => {
 
   const createOnSubmit = (e) => {
     e.preventDefault();
-    const data = {
+    const user = {
       'username': username,
       'email': email,
       'password': password,
@@ -19,7 +19,7 @@ const RegisterFormType = () => {
     }
     console.log(data);
 
-      axios.post('http://127.0.0.1:8000/api/register', data)
+      axios.post('http://127.0.0.1:8000/api/register', user)
         .then((response) =>
             console.log(response),
           // console.log(response),
@@ -29,26 +29,30 @@ const RegisterFormType = () => {
 
 
   return (
-    <div className="container">
-      <form onSubmit={createOnSubmit}>
-        <div className="form-control bg-transparent">
-          <label htmlFor={"username"}>Pseudo</label>
-          <input type="text" id={'username'} name={"username"} onChange={(e) => setUsername(e.target.value)} value={username}/>
-        </div>
-        <div className="form-control bg-transparent">
-          <label htmlFor={"email"}>Email</label>
-          <input type="email" name={"email"} id={'email'} onChange={(e) => setEmail(e.target.value)} value={email}/>
-        </div>
-        <div className="form-control bg-transparent">
-          <label htmlFor={"password"}>Password</label>
-          <input type="password" id={'password'} name={"password"} onChange={(e) => setPassword(e.target.value)} value={password}/>
-        </div>
-        <div className="form-control bg-transparent">
-          <input type="checkbox" name={'agreeTerms'} id={'agreeTerms'} onChange={(e) => setCheckbox(e.target.checked)} value={checkbox}/>
-          <label htmlFor="{'agreeTerms'}">Accepter les terms</label>
-        </div>
-        <button className={"btn btn-secondary"} type={"submit"}>Envoyer</button>
-      </form>
+    <div className="container pt-5">
+      <div className="row justify-content-center">
+        <form className={"col-6"} onSubmit={createOnSubmit}>
+          <div className={'form-control bg-transparent mb-3'}>
+            <label htmlFor={"username"} className={"form-label"}>Pseudo</label>
+            <input type="text" className={'form-control'} id={'username'} name={"username"} onChange={(e) => setUsername(e.target.value)} value={username}/>
+          </div>
+          <div className={'form-control bg-transparent mb-3'}>
+            <label htmlFor={"email"} className={"form-label"}>Email</label>
+            <input type="email" className={'form-control'} name={"email"} id={'email'} onChange={(e) => setEmail(e.target.value)} value={email}/>
+          </div>
+          <div className={'form-control bg-transparent mb-3'}>
+            <label htmlFor={"password"} className={"form-label"}>Password</label>
+            <input type="password" className={'form-control'} id={'password'} name={"password"} onChange={(e) => setPassword(e.target.value)} value={password}/>
+          </div>
+          <div className={'form-control bg-transparent mb-3'}>
+            <input type="checkbox"  name={'agreeTerms'} id={'agreeTerms'} onChange={(e) => setCheckbox(e.target.checked)} value={checkbox}/>
+            <label htmlFor="{'agreeTerms'}" className={"form-label px-2"}>Accepter les terms</label>
+          </div>
+          <div className={"col-3 mx-auto"}>
+            <button className={"btn btn-secondary w-100"} type={"submit"}>S'inscrire</button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 }

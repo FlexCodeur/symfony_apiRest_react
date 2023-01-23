@@ -20,6 +20,7 @@ const Books = () => {
       );
   }, []);
 
+  const isLoggedIn = AuthToken.isLogged();
   const isGranted = AuthToken.isGranted();
 
   const handlerClick = () => {
@@ -29,10 +30,12 @@ const Books = () => {
   return (
     <section>
       {loading && 'Chargement...'}
-      <Navbar />
       {
-        isGranted[0] === 'ROLE_ADMIN'
+        (isLoggedIn
           &&
+          (isGranted[0] === "ROLE_ADMIN" || isGranted[0] === "ROLE_EDITOR")
+        )
+        &&
         <div className="container-fluid pt-3">
           <div className="row justify-content-center">
             <div className="col-12 mx-auto">
@@ -40,7 +43,6 @@ const Books = () => {
             </div>
           </div>
         </div>
-
       }
       { booksData.map((book) =>
         <div className="books" key={book.id}>

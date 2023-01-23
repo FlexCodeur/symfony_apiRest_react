@@ -9,7 +9,8 @@
 /vendor/
 ###< symfony/framework-bundle ###
 
-/.gitignore
+*.gitignore
+*.DS_Store
 /.idea/
 /src/Controller/DataFixtures/
 
@@ -17,11 +18,6 @@
 /phpunit.xml
 .phpunit.result.cache
 ###< phpunit/phpunit ###
-
-###> symfony/phpunit-bridge ###
-.phpunit.result.cache
-/phpunit.xml
-###< symfony/phpunit-bridge ###
 
 ###> symfony/webpack-encore-bundle ###
 /node_modules/
@@ -31,5 +27,5 @@ yarn-error.log
 ###< symfony/webpack-encore-bundle ###
 
 ###> lexik/jwt-authentication-bundle ###
-/config/jwt/*.pem
+#/config/jwt/*.pem
 ###< lexik/jwt-authentication-bundle ###

@@ -1,9 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import axios from 'axios'
-import jwtDecode from 'jwt-decode'
 import { AuthToken } from '../services/AuthToken'
 import { useNavigate, Navigate } from 'react-router-dom'
-import Home from '../views/Home'
 
 const AuthFormType = () => {
 
@@ -41,20 +39,24 @@ const AuthFormType = () => {
 
 
   return (
-    <div className="container">
+    <div className="container pt-5">
       {loading && 'loading.......'}
-      {isLoggedIn && <Navigate to={'/'}/>}
-      <form onSubmit={authHandler}>
-        <div className="form-control bg-transparent">
-          <label htmlFor={"username"}>Email</label>
-          <input type="email" name={"username"} id={'username'} onChange={handleChange} value={user.username}/>
-        </div>
-        <div className="form-control bg-transparent">
-          <label htmlFor={"password"}>Password</label>
-          <input type="password" id={'password'} name={"password"} onChange={handleChange} value={user.password}/>
-        </div>
-        <button className={"btn btn-secondary"} type={"submit"}>Envoyer</button>
-      </form>
+      <div className={"row justify-content-md-center"}>
+        {isLoggedIn && <Navigate to={'/'}/>}
+        <form className={'col-6'} onSubmit={authHandler}>
+          <div className="form-control bg-transparent mb-3">
+            <label htmlFor={"username"} className={'form-label'}>Email</label>
+            <input type="email" className={"form-control"} name={"username"} id={'username'} onChange={handleChange} value={user.username}/>
+          </div>
+          <div className="form-control bg-transparent mb-3">
+            <label htmlFor={"password"} className={'form-label'}>Password</label>
+            <input type="password" className={"form-control"} id={'password'} name={"password"} onChange={handleChange} value={user.password}/>
+          </div>
+          <div className={"col-3 mx-auto"}>
+            <button className={"btn btn-secondary w-100"} type={"submit"}>Envoyer</button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 }
