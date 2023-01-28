@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react'
+import React, { useState } from 'react'
 import axios from 'axios'
 import {useNavigate} from 'react-router-dom'
 import Loading from '../components/loading'
@@ -11,8 +11,8 @@ const BookFormType = () => {
   const [publishedAt, setPublishedAt] = useState('');
   const [isbn, seIsbn] = useState('');
   const [editor, seIEditor] = useState('');
-  const [author, seIsbn] = useState('');
-  const [isbn, seIsbn] = useState('');
+  const [author, setIsbn] = useState('');
+  const [kinds, seIKinds] = useState('');
   const [loading, setLoading] = useState(true);
 
   const createOnSubmit = (e) => {
@@ -29,12 +29,12 @@ const BookFormType = () => {
     }
     console.log(data);
 
-    axios.post('http://127.0.0.1:8000/api/register', data)
+    axios.post('http://127.0.0.1:8000/api/v1/beta/book/new', data)
       .then((response) =>
           console.log(response),
         // console.log(response),
         setLoading(false),
-        navigate('/login')
+        navigate('/books')
       )
   };
 
