@@ -71,18 +71,14 @@ class ApiBookController extends AbstractController
             $book->getKinds()->add($kindRepository->find($kind));
         }
 
-        try {
+
             $entityManager->persist($book);
             $entityManager->flush();
-        } catch (\Exception) {
-            return $this->json([
-                'message' => ['content' => 'Une erreur s\'est produite.', 'level' => 'error']
-            ],403, []);
-        }
+
 
         return $this->json([
-            'user'    => $book->toArray(),
-            'message' => ['content' => 'Votre compte a bien été créé', 'level' => 'success']
+            'book'    => $book->toArray(),
+            'message' => ['content' => 'Votre livre a bien été créé', 'level' => 'success']
         ], 201, [], ['groups' => 'book.show']);
 
     }
