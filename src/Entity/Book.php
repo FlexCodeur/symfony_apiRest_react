@@ -26,9 +26,9 @@ class Book
     #[Groups(groups : ['books.list', 'book.show', 'authors.list'])]
     private ?string $description = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[ORM\Column(type: Types::DATE_MUTABLE)]
     #[Groups(groups : ['books.list', 'book.show', 'authors.list'])]
-    private ?\DateTimeInterface $publishedAt = null;
+    private ?\DateTime $publishedAt = null;
 
     #[ORM\Column(length: 13)]
     #[Groups(groups : ['books.list', 'book.show', 'authors.list'])]
@@ -80,12 +80,12 @@ class Book
         return $this;
     }
 
-    public function getPublishedAt(): ?\DateTimeInterface
+    public function getPublishedAt(): ?\DateTime
     {
         return $this->publishedAt;
     }
 
-    public function setPublishedAt(\DateTimeInterface $publishedAt): self
+    public function setPublishedAt(?\DateTime $publishedAt): self
     {
         $this->publishedAt = $publishedAt;
 
@@ -155,7 +155,7 @@ class Book
         return $this;
     }
 
-    public function toArray()
+    public function toArray() :array
     {
         return [
             'id' => $this->id,
@@ -163,7 +163,9 @@ class Book
             'description' => $this->description,
             'publishedAt' => $this->publishedAt,
             'isbn' => $this->isbn,
+            'editor' => $this->editor,
             'author' => $this->author,
+            'kinds' => $this->kinds
         ];
     }
 }

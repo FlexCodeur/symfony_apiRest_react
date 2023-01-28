@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import axios from 'axios'
 import { AuthToken } from '../services/AuthToken'
 import { useNavigate, Navigate } from 'react-router-dom'
+import Loading from '../components/loading'
 
 const AuthFormType = () => {
 
@@ -39,11 +40,11 @@ const AuthFormType = () => {
 
 
   return (
-    <div className="container pt-5">
-      {loading && 'loading.......'}
-      <div className={"row justify-content-md-center"}>
+    <div className="container-fluid pt-5">
+      {loading && <Loading />}
+      <div className={"row justify-content-center"}>
         {isLoggedIn && <Navigate to={'/'}/>}
-        <form className={'col-6'} onSubmit={authHandler}>
+        <form className={'col-4'} onSubmit={authHandler}>
           <div className="form-control bg-transparent mb-3">
             <label htmlFor={"username"} className={'form-label'}>Email</label>
             <input type="email" className={"form-control"} name={"username"} id={'username'} onChange={handleChange} value={user.username}/>

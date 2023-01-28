@@ -61,7 +61,8 @@ class ApiSecurityController extends AbstractController {
         try {
             $entityManager->persist($user);
             $entityManager->flush();
-        } catch (\Exception) {
+        }
+        catch (\Exception) {
             return $this->json([
                 'message' => ['content' => 'Une erreur s\'est produite.', 'level' => 'error']
             ],403, []);

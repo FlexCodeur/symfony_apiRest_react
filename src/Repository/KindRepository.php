@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Kind;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -37,6 +38,28 @@ class KindRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    /**
+     * @throws NonUniqueResultException
+     */
+    public function findKindsForBook($id): ?Kind
+    {
+        $qb = $this->createQueryBuilder('kind')
+            ->select('kind')
+            ->leftJoin('kind.books', 'books')
+            ->addSelect('kind')
+            ->setParameter('id', $id)
+
+        ;
+        if (!empty($id['id'])) {
+            $qb->andWhere('kind.id LIKE :id')
+                ->setParameter('id', $id['id']);
+        }
+
+        $query = $qb->getQuery();
+        return $query->execute();
+
     }
 
 //    /**

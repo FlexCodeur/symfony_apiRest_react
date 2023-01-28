@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Form\FormTypeInterface;
 
 #[ORM\Entity(repositoryClass: KindRepository::class)]
 class Kind
@@ -22,7 +23,7 @@ class Kind
     private ?string $name = null;
 
     #[Groups(groups : ['kinds.list'])]
-    #[ORM\ManyToMany(targetEntity: Book::class, inversedBy: 'kinds')]
+    #[ORM\ManyToMany(targetEntity: Book::class, inversedBy: 'kinds', cascade: ['persist'])]
     private Collection $books;
 
     public function __construct()

@@ -1,6 +1,7 @@
 import React, { useCallback, useState } from 'react'
 import axios from 'axios'
 import {useNavigate} from 'react-router-dom'
+import Loading from '../components/loading'
 
 const RegisterFormType = () => {
 
@@ -32,9 +33,10 @@ const RegisterFormType = () => {
 
 
   return (
-    <div className="container pt-5">
+    <div className="container-fluid pt-5">
+      {loading && <Loading />}
       <div className="row justify-content-center">
-        <form className={"col-6"} onSubmit={createOnSubmit}>
+        <form className={"col-4"} onSubmit={createOnSubmit}>
           <div className={'form-control bg-transparent mb-3'}>
             <label htmlFor={"username"} className={"form-label"}>Pseudo</label>
             <input type="text" className={'form-control'} id={'username'} name={"username"} onChange={(e) => setUsername(e.target.value)} value={username}/>

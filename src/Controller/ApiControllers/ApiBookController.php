@@ -4,10 +4,14 @@ namespace App\Controller\ApiControllers;
 
 use App\Entity\Book;
 use App\Form\BookFormType;
+use App\Repository\AuthorRepository;
 use App\Repository\BookRepository;
+use App\Repository\KindRepository;
+use Doctrine\DBAL\Exception;
 use Doctrine\ORM\EntityManagerInterface;
+use http\Exception\BadHeaderException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\BrowserKit\Request;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -23,23 +27,23 @@ class ApiBookController extends AbstractController
         return $this->json($books, 200, [], ['groups' => 'books.list']);
     }
 
-    #[Route('api/v1/beta/book/new', name: 'app_api_book_new', methods: ['POST'])]
-    public function bookNew(Request $request, EntityManagerInterface $entityManager)
+    #[Route('api/v1/beta/book/new', name: 'app_api_book_new', methods: ['GET','POST'])]
+    public function bookNew
+        (
+            Request $request,
+            EntityManagerInterface $entityManager,
+            AuthorRepository $authorRepository,
+            KindRepository $kindRepository
+        )
     {
-        if ($this->isGranted('ROLE_ADMIN')) {
-            return $this->json([
-                'message' => [
-                    'content' => 'Vous n\avez pas accès à cette page',
-                    'level' => 'error'
-                ]
-            ],
-                302);
-        }
 
-        $content = $request->getContent();
+        $content = json_decode($request->getContent());
 
         $formBook = $this->createForm(BookFormType::class);
-        $formBook->submit(array($content));
+        $formBook->submit((array)$content);
+
+        $authorId = $content->author;
+        $kinds = $content->kinds;
 
         if (!$formBook->isValid()) {
             $errors = [];
@@ -48,7 +52,10 @@ class ApiBookController extends AbstractController
                 $errors[$propertyName] = $error->getMessage();
             }
             return $this->json([
-                'message' => ['content' => $errors, 'level' => 'error'],
+                'message' => [
+                    'content' => $errors,
+                    'level' => 'error'
+                ],
             ], 401,[]);
         }
 
@@ -56,9 +63,13 @@ class ApiBookController extends AbstractController
 
         $book->setTitle($content->title);
         $book->setDescription($content->description);
+        $book->setPublishedAt(new \DateTime($content->publishedAt));
+        $book->setIsbn($content->isbn);
         $book->setEditor($content->editor);
-        $book->setPublishedAt($content->publishedAt);
-        $book->setAuthor($content->author);
+        $book->setAuthor($authorId ? $authorRepository->find($authorId) : NULL );
+        foreach ($kinds as $kind) {
+            $book->getKinds()->add($kindRepository->find($kind));
+        }
 
         try {
             $entityManager->persist($book);
@@ -67,12 +78,12 @@ class ApiBookController extends AbstractController
             return $this->json([
                 'message' => ['content' => 'Une erreur s\'est produite.', 'level' => 'error']
             ],403, []);
-
         }
+
         return $this->json([
             'user'    => $book->toArray(),
             'message' => ['content' => 'Votre compte a bien été créé', 'level' => 'success']
-        ], 201, []);
+        ], 201, [], ['groups' => 'book.show']);
 
     }
 
