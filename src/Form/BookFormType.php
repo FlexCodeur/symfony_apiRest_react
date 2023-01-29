@@ -78,10 +78,8 @@ class BookFormType extends AbstractType
                     ]),
                 ],
                 'class' => Author::class,
-                'mapped' => true
             ])
             ->add('kinds', EntityType::class, [
-                'mapped' => true,
                 'multiple' => true,
                 'class' => Kind::class,
                 'constraints' => [

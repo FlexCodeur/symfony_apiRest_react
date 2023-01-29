@@ -11,8 +11,8 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: BookRepository::class)]
-#[UniqueEntity(fields: ['title'], message: 'Le titre du livre existe déjà')]
-#[UniqueEntity(fields: ['isbn'], message: 'L\'isbn du livre existe déjà')]
+//#[UniqueEntity(fields: ['title'], message: 'Le titre du livre existe déjà')]
+//#[UniqueEntity(fields: ['isbn'], message: 'L\'isbn du livre existe déjà')]
 class Book
 {
     #[ORM\Id]
@@ -45,8 +45,8 @@ class Book
     #[Groups(groups : ['books.list', 'book.show'])]
     private ?Author $author = null;
 
-    #[Groups(groups : ['books.list'])]
-    #[ORM\ManyToMany(targetEntity: Kind::class, mappedBy: 'books')]
+    #[Groups(groups : ['books.list', 'kind.list'])]
+    #[ORM\ManyToMany(targetEntity: Kind::class, inversedBy: 'books')]
     private Collection $kinds;
 
     public function __construct()
@@ -137,6 +137,12 @@ class Book
     public function getKinds(): Collection
     {
         return $this->kinds;
+    }
+
+    public function setKinds($kinds): Collection
+    {
+        $this->kinds = $kinds;
+        return $kinds;
     }
 
     public function addKind(Kind $kind): self

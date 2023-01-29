@@ -7,7 +7,8 @@ use App\Form\BookFormType;
 use App\Repository\AuthorRepository;
 use App\Repository\BookRepository;
 use App\Repository\KindRepository;
-use Doctrine\DBAL\Exception;
+use Doctrine\DBAL\Driver\Exception;
+use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Doctrine\ORM\EntityManagerInterface;
 use http\Exception\BadHeaderException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -28,22 +29,14 @@ class ApiBookController extends AbstractController
     }
 
     #[Route('api/v1/beta/book/new', name: 'app_api_book_new', methods: ['GET','POST'])]
-    public function bookNew
-        (
-            Request $request,
-            EntityManagerInterface $entityManager,
-            AuthorRepository $authorRepository,
-            KindRepository $kindRepository
-        )
+    public function bookNew(Request $request, EntityManagerInterface $entityManager)
     {
-
         $content = json_decode($request->getContent());
 
-        $formBook = $this->createForm(BookFormType::class);
-        $formBook->submit((array)$content);
+        $book = new Book();
 
-        $authorId = $content->author;
-        $kinds = $content->kinds;
+        $formBook = $this->createForm(BookFormType::class, $book);
+        $formBook->submit((array)$content);
 
         if (!$formBook->isValid()) {
             $errors = [];
@@ -59,23 +52,16 @@ class ApiBookController extends AbstractController
             ], 401,[]);
         }
 
-        $book = new Book();
-
-        $book->setTitle($content->title);
-        $book->setDescription($content->description);
-        $book->setPublishedAt(new \DateTime($content->publishedAt));
-        $book->setIsbn($content->isbn);
-        $book->setEditor($content->editor);
-        $book->setAuthor($authorId ? $authorRepository->find($authorId) : NULL );
-        foreach ($kinds as $kind) {
-            $book->getKinds()->add($kindRepository->find($kind));
-        }
-
-
-            $entityManager->persist($book);
+        try {
+            $entityManager->persist($formBook->getData());
             $entityManager->flush();
+        }
+        catch (\Exception) {
+            return $this->json([
+                'message' => ['content' => 'Une erreur s\'est produite.', 'level' => 'error']
+            ],403, []);
 
-
+        }
         return $this->json([
             'book'    => $book->toArray(),
             'message' => ['content' => 'Votre livre a bien été créé', 'level' => 'success']
