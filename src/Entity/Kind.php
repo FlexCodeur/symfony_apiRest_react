@@ -60,12 +60,6 @@ class Kind
         return $this->books;
     }
 
-    public function setBooks($books): Collection
-    {
-        $this->books = $books;
-        return $books;
-    }
-
     public function addBook(Book $book): self
     {
         if (!$this->books->contains($book)) {

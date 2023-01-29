@@ -33,7 +33,9 @@ class ApiSecurityController extends AbstractController {
 
         $content = json_decode($request->getContent());
 
-        $form = $this->createForm(RegistrationFormType::class);
+        $user = new User();
+
+        $form = $this->createForm(RegistrationFormType::class, $user);
         $form->submit((array)$content);
 
         if (!$form->isValid()) {
@@ -47,14 +49,10 @@ class ApiSecurityController extends AbstractController {
             ], 401,[]);
         }
 
-        $user = new User();
-
-        $user->setEmail($content->email);
-        $user->setUsername($content->username);
         $user->setPassword(
             $userPasswordHasher->hashPassword(
                 $user,
-                $content->password
+                $form->get('plainPassword')->getData()
             )
         );
 
