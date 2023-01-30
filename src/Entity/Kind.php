@@ -64,7 +64,7 @@ class Kind
     {
         if (!$this->books->contains($book)) {
             $this->books->add($book);
-//            $book->addKind($this);
+            $book->addKind($this);
 
         }
 

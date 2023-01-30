@@ -6,6 +6,7 @@ use App\Entity\Book;
 use App\Form\BookFormType;
 use App\Repository\BookRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -24,9 +25,28 @@ class ApiBookController extends AbstractController
     }
 
     #[Route('api/v1/beta/book/new', name: 'app_api_book_new', methods: ['GET','POST'])]
+//    #[IsGranted('ROLE_ADMIN', message: 'Vous n\'avez pas les droits suffisants pour créer un livre')]
     public function bookNew(Request $request, EntityManagerInterface $entityManager)
     {
+        $hasAccess = $this->isGranted('ROLE_EDITOR');
+        if(!$hasAccess) {
+            return $this->json([[
+                'message' => [
+                    'content' => 'Vous n\'avez pas les droits suffisants pour créer un livre',
+                    'level' => 'error'
+                ]
+            ]], 401, []);
+        }
         $content = json_decode($request->getContent());
+
+        if (!$content) {
+            return  $this->json([
+                'message' => [
+                    'content' => 'Merci de rééssayer dans un instant.',
+                    'level' => 'error'
+                ]
+            ], 406, []);
+        }
 
         $newBook = new Book();
 
@@ -73,6 +93,15 @@ class ApiBookController extends AbstractController
             EntityManagerInterface $entityManager
         ): Response
     {
+        $hasAccess = $this->isGranted('ROLE_EDITOR');
+        if(!$hasAccess) {
+            return $this->json([[
+                'message' => [
+                    'content' => 'Vous n\'avez pas les droits suffisants pour modifier un livre',
+                    'level' => 'error'
+                ]
+            ]], 401, []);
+        }
         $book = $bookRepository->findOneBy([
             'id' => $id
         ]);
@@ -130,6 +159,16 @@ class ApiBookController extends AbstractController
             EntityManagerInterface $entityManager
         ): Response
     {
+        $hasAccess = $this->isGranted('ROLE_ADMIN');
+        if(!$hasAccess) {
+            return $this->json([[
+                'message' => [
+                    'content' => 'Vous n\'avez pas les droits suffisants pour supprimer un livre',
+                    'level' => 'error'
+                ]
+            ]], 401, []);
+        }
+
         $book = $bookRepository->findOneBy([
             'id' => $id
         ]);

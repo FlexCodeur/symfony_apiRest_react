@@ -45,7 +45,7 @@ class Book
     #[Groups(groups : ['books.list', 'book.show'])]
     private ?Author $author = null;
 
-    #[Groups(groups : ['books.list', 'kind.list'])]
+    #[Groups(groups : ['books.list', 'kind.list', 'book.show'])]
     #[ORM\ManyToMany(targetEntity: Kind::class, inversedBy: 'books')]
     private Collection $kinds;
 
