@@ -11,7 +11,7 @@ const Author = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios.get('http://127.0.0.1:8000/api/v1/beta/author/' + id)
+    axios.get('/v1/beta/author/' + id)
       .then((response) =>
 
           setAuthorData(response.data),

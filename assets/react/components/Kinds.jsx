@@ -7,7 +7,7 @@ const Kinds = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios.get('http://127.0.0.1:8000/api/v1/beta/kinds')
+    axios.get('/api/v1/beta/kinds')
       .then((response) =>
           setkindsData(response.data),
           setLoading(false)

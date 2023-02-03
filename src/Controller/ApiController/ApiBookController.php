@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Controller\ApiControllers;
+namespace App\Controller\ApiController;
 
 use App\Entity\Book;
 use App\Form\BookFormType;
 use App\Repository\BookRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -24,7 +23,7 @@ class ApiBookController extends AbstractController
         return $this->json($books, 200, [], ['groups' => 'books.list']);
     }
 
-    #[Route('api/v1/beta/book/new', name: 'app_api_book_new', methods: ['GET','POST'])]
+    #[Route('api/v1/beta/book/new', name: 'app_api_book_new', methods: ['POST'])]
 //    #[IsGranted('ROLE_ADMIN', message: 'Vous n\'avez pas les droits suffisants pour créer un livre')]
     public function bookNew(Request $request, EntityManagerInterface $entityManager)
     {

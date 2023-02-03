@@ -7,7 +7,7 @@ const Authors = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios.get('http://127.0.0.1:8000/api/v1/beta/authors')
+    axios.get('/api/v1/beta/authors')
       .then((response) =>
           setAuthorsData(response.data),
           setLoading(false)

@@ -29,7 +29,7 @@ const BookFormType = () => {
     }
     console.log(data);
 
-    axios.post('http://127.0.0.1:8000/api/v1/beta/book/new', data)
+    axios.post('/api/v1/beta/book/new', data)
       .then((response) =>
           console.log(response),
         // console.log(response),

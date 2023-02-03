@@ -16,7 +16,7 @@ const { id } = useParams();
   let navigate = useNavigate();
 
   useEffect(() => {
-    axios.get('http://127.0.0.1:8000/api/v1/beta/book/' + id )
+    axios.get('/api/v1/beta/book/' + id )
       .then((response) =>
           setBookData(response.data),
           setLoading(false)

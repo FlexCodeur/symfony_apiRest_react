@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import axios from 'axios'
 import { AuthToken } from '../services/AuthToken'
 import { useNavigate, Navigate } from 'react-router-dom'
 import Loading from '../components/loading'
@@ -26,7 +25,7 @@ const AuthFormType = () => {
   const authHandler = (e) => {
     e.preventDefault();
 
-    axios.post('http://127.0.0.1:8000/api/login', user)
+    AuthToken.login(user)
       .then((response) =>
         AuthToken.saveToken(response.data.token),
         // console.log(response.data.token),

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller\ApiControllers;
+namespace App\Controller\ApiController;
 
 use App\Entity\User;
 use App\Form\RegistrationFormType;

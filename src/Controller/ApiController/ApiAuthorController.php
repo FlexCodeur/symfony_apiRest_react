@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller\ApiControllers;
+namespace App\Controller\ApiController;
 
 use App\Entity\Author;
 use App\Repository\AuthorRepository;
@@ -16,12 +16,12 @@ class ApiAuthorController extends AbstractController
     {
         $authors = $authorRepository->findAll();
 
-        return $this->json($authors, 200, ['Access-Control-Allow-Origin' => '*'], ['groups' => 'authors.list']);
+        return $this->json($authors, 200, [], ['groups' => 'authors.list']);
     }
 
     #[Route('api/v1/beta/author/{id}', name: 'app_api_authors_show', methods: ['GET'])]
     public function authorShow(Author $author): Response
     {
-        return $this->json($author, 200, ['Access-Control-Allow-Origin' => '*'], ['groups' => 'author.show']);
+        return $this->json($author, 200, [], ['groups' => 'author.show']);
     }
 }

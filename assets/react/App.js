@@ -11,7 +11,6 @@ import Login from './views/Login'
 import Register from './views/Register'
 import RequireAuth from './security/RequireAuth'
 
-
 const GetId = () => {
   const { id } = useParams();
 

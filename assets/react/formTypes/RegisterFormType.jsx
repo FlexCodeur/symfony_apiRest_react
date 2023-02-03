@@ -22,7 +22,7 @@ const RegisterFormType = () => {
     }
     console.log(data);
 
-      axios.post('http://127.0.0.1:8000/api/register', data)
+      axios.post('/api/register', data)
         .then((response) =>
             console.log(response),
           // console.log(response),
