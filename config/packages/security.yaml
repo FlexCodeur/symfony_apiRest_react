@@ -28,6 +28,7 @@ security:
             methods: [ POST ]
             json_login:
                 check_path: /api/login
+                provider: app_user_provider
                 success_handler: lexik_jwt_authentication.handler.authentication_success
                 failure_handler: lexik_jwt_authentication.handler.authentication_failure
 
@@ -59,11 +60,12 @@ security:
     access_control:
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
-        - { path: /api/v1/beta/authors, roles: IS_AUTHENTICATED_FULLY }
-        - { path: /api/v1/beta/books}
-        - { path: /api/v1/beta/book/new, roles: IS_AUTHENTICATED_FULLY }
-        - { path: ^/api/, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/api/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api/v1/beta/kinds, roles: PUBLIC_ACCESS }
+        - { path: ^/api/v1/beta/authors, roles: PUBLIC_ACCESS }
+        - { path: ^/api/v1/beta/books, roles: PUBLIC_ACCESS }
+        - { path: ^/api/v1/beta/book/new, roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/api/, roles: PUBLIC_ACCESS }
+        - { path: ^/api/login, roles: PUBLIC_ACCESS }
         - { path: ^/api/users, roles: IS_AUTHENTICATED_FULLY, methods: [GET] }
 #        - { path: ^/, roles: IS_AUTHENTICATED_ANONYMOUSLY }
 

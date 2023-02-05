@@ -1,0 +1,8 @@
+#DirectoryIndex index.php
+#
+#<IfModule mod_rewrite.c>
+#    RewriteEngine On
+#    # Sets the HTTP_AUTHORIZATION header removed by Apache
+#    RewriteCond %{HTTP:Authorization} .
+#    RewriteRule ^ - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+#</IfModule>

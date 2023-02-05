@@ -56,12 +56,12 @@ class BookFormType extends AbstractType
                     new NotBlank([
                         'message' => 'Veuillez saisir votre ISBN'
                     ]),
-                    new Length([
-                        'min' => 13,
-                        'minMessage' => 'Votre ISBN doit contenir 13 chiffres',
-                        'max' => 13,
-                        'maxMessage' => 'Votre ISBN doit contenir 13 chiffres'
-                    ])
+//                    new Length([
+//                        'min' => 13,
+//                        'minMessage' => 'Votre ISBN doit contenir {{ limit }} chiffres',
+//                        'max' => 13,
+//                        'maxMessage' => 'Votre ISBN doit contenir {{ limit }} chiffres'
+//                    ])
                 ]
             ])
             ->add('editor', TextType::class, [

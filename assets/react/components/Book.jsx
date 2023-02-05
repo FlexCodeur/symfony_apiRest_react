@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import { ApiBooks } from '../services/api/ApiBooks'
 import { useNavigate, useParams } from 'react-router-dom'
 import BookList from '../views/BookList'
-import { AuthToken } from '../services/AuthToken'
+import { AuthService } from '../services/AuthService'
 
 
 const Book = () => {
@@ -16,7 +16,7 @@ const { id } = useParams();
   let navigate = useNavigate();
 
   useEffect(() => {
-    axios.get('/api/v1/beta/book/' + id )
+    ApiBooks.bookShow(id)
       .then((response) =>
           setBookData(response.data),
           setLoading(false)
@@ -26,7 +26,7 @@ const { id } = useParams();
         setLoading(false))
   }, []);
 
-  const isGranted = AuthToken.isGranted();
+  const isGranted = AuthService.isGranted();
   
   const handlerClick = () => {
     navigate("/book/" + bookData.id + "/edit")

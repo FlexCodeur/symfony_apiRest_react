@@ -1,6 +1,6 @@
 import React from 'react'
 import jwtDecode from 'jwt-decode'
-import Axios from './api/Axios'
+import Axios from './Axios'
 
 const login = (data) => {
   return Axios.post('/api/login', data)
@@ -29,6 +29,6 @@ const isGranted = () => {
     return decode.roles;
 }
 
-export const AuthToken = {
+export const AuthService = {
   login, saveToken, logout, isLogged, getToken, isGranted
 }

@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import axios from 'axios'
+import { ApiAuthors } from '../services/api/ApiAuthors'
 
 const Authors = () => {
 
@@ -7,7 +7,7 @@ const Authors = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios.get('/api/v1/beta/authors')
+    ApiAuthors.authors()
       .then((response) =>
           setAuthorsData(response.data),
           setLoading(false)

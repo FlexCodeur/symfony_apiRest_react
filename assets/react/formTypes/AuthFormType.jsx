@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { AuthToken } from '../services/AuthToken'
+import { AuthService } from '../services/AuthService'
 import { useNavigate, Navigate } from 'react-router-dom'
 import Loading from '../components/loading'
 
@@ -25,9 +25,9 @@ const AuthFormType = () => {
   const authHandler = (e) => {
     e.preventDefault();
 
-    AuthToken.login(user)
+    AuthService.login(user)
       .then((response) =>
-        AuthToken.saveToken(response.data.token),
+        AuthService.saveToken(response.data.token),
         // console.log(response.data.token),
         setLoading(true),
         setTimeout(() => {
@@ -35,7 +35,7 @@ const AuthFormType = () => {
         }, 2000)
       )
   };
-  const isLoggedIn = AuthToken.isLogged();
+  const isLoggedIn = AuthService.isLogged();
 
 
   return (

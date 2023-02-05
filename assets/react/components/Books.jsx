@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import Book from './Book'
-import { AuthToken } from '../services/AuthToken'
+import { ApiBooks } from '../services/api/ApiBooks'
+// import { AuthService } from '../services/AuthService'
 import { useNavigate } from 'react-router-dom'
-import Navbar from './Navbar'
 
 const Books = () => {
 
@@ -13,7 +11,7 @@ const Books = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-     axios.get('/api/v1/beta/books')
+     ApiBooks.books()
       .then((response) =>
         setBooksData(response.data),
         setLoading(false)
@@ -24,15 +22,15 @@ const Books = () => {
     navigate("/book/new")
   }
 
-  const isLoggedIn = AuthToken.isLogged();
-  const isGranted = AuthToken.isGranted();
+  // const isLoggedIn = AuthService.isLogged();
+  // const isGranted = AuthService.isGranted();
 
   return (
     <section>
       {loading && 'Chargement...'}
-      {
-        (isLoggedIn && (isGranted[0] === "ROLE_ADMIN" || isGranted[0] === "ROLE_EDITOR"))
-        &&
+      {/*{*/}
+      {/*  ((isLoggedIn) && (isGranted[0] === "ROLE_ADMIN" || isGranted[0] === "ROLE_EDITOR"))*/}
+      {/*  &&*/}
         <div className="container-fluid pt-3">
           <div className="row justify-content-center">
             <div className="col-12 mx-auto">
@@ -40,7 +38,7 @@ const Books = () => {
             </div>
           </div>
         </div>
-      }
+       {/*}*/}
       { booksData.map((book) =>
         <div className="books" key={book.id}>
           <h1>{book.title}</h1>

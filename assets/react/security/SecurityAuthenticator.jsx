@@ -1,10 +1,10 @@
 import React from 'react'
 import { Navigate } from 'react-router-dom'
-import { AuthToken } from '../services/AuthToken'
+import { AuthService } from '../services/AuthService'
 
 const SecurityAuthenticator = ({children}) => {
 
-  if(!AuthToken.isLogged()){
+  if(!AuthService.isLogged()){
     return <Navigate to={"/"} />
   }
 

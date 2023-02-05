@@ -10,6 +10,7 @@ import NotFound from './views/NotFound'
 import Login from './views/Login'
 import Register from './views/Register'
 import RequireAuth from './security/RequireAuth'
+import BookNew from './views/BookNew'
 
 const GetId = () => {
   const { id } = useParams();
@@ -24,14 +25,14 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/books" element={<BookList />} />
           <Route path="/authors" element={<AuthorList />} />
-          <Route element={<RequireAuth rolesGranted={["ROLE_ADMIN"]} /> }>
-            <Route path="/kinds" element={<KindList />} />
-          </Route>
-          <Route path="/author/:id" element={<AuthorShow/>} />
-          <Route path="/book/:id" element={<BookShow/>} />
+          {/*<Route element={<RequireAuth rolesGranted={["ROLE_ADMIN"]} /> }>*/}
+          <Route path="/kinds" element={<KindList />} />
+          {/*</Route>*/}
+          <Route path="/author/:id" element={<AuthorShow />} />
+          <Route path="/book/:id" element={<BookShow />} />
+          <Route path="/book/new" element={<BookNew />} />
           {/*<Route element={<RequireAuth rolesGranted={["ROLE_ADMIN", "ROLE_EDITOR"]} /> } >*/}
-            <Route path={"/book/new"} />
-            <Route path={"/book/:id/edit"} />
+          <Route path={"/book/:id/edit"} />
           {/*</Route>*/}
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
