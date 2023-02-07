@@ -16,7 +16,7 @@ const BookCreate = () => {
     editor: '',
     author: '',
     isbn: '',
-    kind: []
+    kinds: []
   })
 
   const handleSubmit = (e) => {
@@ -40,7 +40,7 @@ const BookCreate = () => {
     let kindId = Array.from(e.target.selectedOptions, option => option.value)
     setBook({
       ...book,
-      kind: kindId
+      kinds: kindId
     })
   }
 
@@ -73,7 +73,7 @@ const BookCreate = () => {
         editor={book.editor}
         isbn={book.isbn}
         author={book.author}
-        kind={book.kind} />
+        kind={book.kinds} />
     </div>
   );
 }
