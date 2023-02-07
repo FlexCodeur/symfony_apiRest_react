@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { ApiBooks } from '../services/api/ApiBooks'
+import { ApiBooks } from '../../services/api/ApiBooks'
 // import { AuthService } from '../services/AuthService'
 import { useNavigate } from 'react-router-dom'
+import Loading from '../loading'
 
 const Books = () => {
 
@@ -14,7 +15,9 @@ const Books = () => {
      ApiBooks.books()
       .then((response) =>
         setBooksData(response.data),
-        setLoading(false)
+        setTimeout(() => {
+         setLoading(false)
+        }, 800)
       );
   }, []);
 
@@ -27,7 +30,7 @@ const Books = () => {
 
   return (
     <section>
-      {loading && 'Chargement...'}
+      {loading && <Loading />}
       {/*{*/}
       {/*  ((isLoggedIn) && (isGranted[0] === "ROLE_ADMIN" || isGranted[0] === "ROLE_EDITOR"))*/}
       {/*  &&*/}

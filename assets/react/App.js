@@ -1,16 +1,16 @@
 import React from 'react'
 import { BrowserRouter, Route, Routes, useParams } from 'react-router-dom'
-import Home from "./views/Home";
-import BookList from "./views/BookList";
-import AuthorList from './views/AuthorList';
-import KindList from './views/KindList';
-import AuthorShow from './views/AuthorShow'
-import BookShow from './views/BookShow'
-import NotFound from './views/NotFound'
-import Login from './views/Login'
-import Register from './views/Register'
+import Home from "./pages/Home";
+import BookList from "./pages/BookList";
+import AuthorList from './pages/AuthorList';
+import KindList from './pages/KindList';
+import AuthorShow from './pages/AuthorShow'
+import BookShow from './pages/BookShow'
+import NotFound from './pages/NotFound'
+import Login from './pages/Login'
+import Register from './pages/Register'
 import RequireAuth from './security/RequireAuth'
-import BookNew from './views/BookNew'
+import BookNew from './pages/BookNew'
 
 const GetId = () => {
   const { id } = useParams();

@@ -1,6 +1,6 @@
 import React from "react";
 import Navbar from '../components/Navbar'
-import BookFormType from '../formTypes/BookFormType'
+import BookCreate from '../components/books/BookCreate'
 
 const BookNew = () => {
   return (
@@ -8,9 +8,8 @@ const BookNew = () => {
       <Navbar/>
       <section>
         <h1 className={'container text-center text-uppercase pt-5 px-0 mb-0'}>Création d'un livre</h1>
-        <BookFormType />
+        <BookCreate />
       </section>
-
     </div>
   );
 }

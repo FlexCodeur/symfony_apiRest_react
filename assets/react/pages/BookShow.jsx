@@ -1,7 +1,7 @@
 import React from "react";
-import Book from '../components/Book'
+import Book from '../components/books/Book'
 import Navbar from '../components/Navbar'
-import Books from '../components/Books'
+import Books from '../components/books/Books'
 
 const BookShow = () => {
   return (

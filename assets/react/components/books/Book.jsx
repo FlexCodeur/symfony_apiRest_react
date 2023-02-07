@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { ApiBooks } from '../services/api/ApiBooks'
+import { ApiBooks } from '../../services/api/ApiBooks'
 import { useNavigate, useParams } from 'react-router-dom'
-import BookList from '../views/BookList'
-import { AuthService } from '../services/AuthService'
+import BookList from '../../pages/BookList'
+import { AuthService } from '../../services/AuthService'
 
 
 const Book = () => {
